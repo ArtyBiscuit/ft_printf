@@ -6,41 +6,63 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:02:58 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/12 19:31:39 by arforgea         ###   ########.fr       */
+/*   Updated: 2022/10/15 18:19:25 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft/libft.h"
 #include <stdarg.h>
+int ft_putnbr_base(unsigned long n, char *str);
+int ft_putstr(char *str);
+int ft_putchar(char str);
 
 char	flags(const char *str, int index, int arg)
 {
-	if (!str || !arg)
-		return (0);
+	char flags;
+
 	if (str[index] == arg)
-		return (str[index + 1]);
+	{
+		flags = str[index + 1];
+		return (flags);
+	}
 	return (0);
 }
 
-/*
-int	nb_flags(const char *str, int arg)
+void	ft_putlast_addrstr(va_list ptr)
 {
 	int index;
-	int nb_flags;
 
-	index = 0;
-	nb_flags = 0;
-	if (!str)
-		return (0);
-	while (str[index])
-	{
-		if (str[index] == arg)
-			nb_flags++;
-		index++;
-	}
-	return (nb_flags);
+	write(1, "0x", 2);
+	ft_putnbr_base(va_arg(ptr, unsigned long), "0123456789abcdef");
 }
-*/
 
+void	ft_print_flags(int *index, const char *str, va_list ptr, int arg)
+{
+	if (str[*index] != arg)
+	{
+		write(1, &str[*index], 1);
+		*index += 1;
+		return ;
+	}
+	else if (flags(str, *index, arg) == 's')
+		ft_putstr(va_arg(ptr, char*));
+	else if (flags(str, *index, arg) == 'c')
+		ft_putchar(va_arg(ptr, int));
+	else if (flags(str, *index, arg) == 'd')
+		ft_putnbr_fd(va_arg(ptr, int), 1);
+	else if (flags(str, *index, arg) == 'p')
+		ft_putlast_addrstr(ptr);
+	else if (flags(str, *index, arg) == 'i')
+		ft_putnbr_fd(va_arg(ptr, int), 1);
+	else if (flags(str, *index, arg) == 'u')
+		ft_putnbr_fd(va_arg(ptr, int), 1);
+	else if (flags(str, *index, arg) == 'x')
+        ft_putnbr_base(va_arg(ptr, int), "0123456789abcdef");
+	else if (flags(str, *index, arg) == 'X')
+		ft_putnbr_base(va_arg(ptr, int), "0123456789ABCDEF");
+	else if (flags(str, *index, arg) == '%')
+		ft_putchar_fd('%', 1);
+	*index += 2;
+}
 int ft_printf(const char *str, ...)
 {
 	va_list	ptr;
@@ -51,35 +73,20 @@ int ft_printf(const char *str, ...)
 	index = 0;
 	va_start(ptr, str);
 	while (str[index])
-	{
-		if (flags(str, index, arg) == 's')
-		{
-			index += 2;
-			ft_putstr_fd(va_arg(ptr, char*), 1);
-		}
-		if (flags(str, index, arg) == 'c')
-		{
-			index += 2;
-			ft_putchar_fd(va_arg(ptr, int), 1);
-		}
-		if (flags(str, index, arg) == 'd')
-		{
-			index += 2;
-			ft_putstr_fd(ft_itoa(va_arg(ptr, int)), 1);
-		}
-		else
-			write(1, &str[index], 1);
-		index++;
-	}
+		ft_print_flags(&index, str, ptr, arg);
 	va_end(ptr);
 	return (0);
 }
 
+
+#include <stdio.h>
 int main(void)
 {
 	char	*str	= "OK";
 	char	chr		= 'K';
-	int		nbr		= 40;
+	int		nbr		= 255;
+	unsigned int nbu = 55;
 
-	ft_printf("| str: %s | chr: %c | nbr: %d |", str, chr, nbr);
+	printf("%d", printf("%s,%c,%d,%p,%i,%u,%x,%X,%%,\n", str, chr, nbr, str, nbr, nbu, nbr, nbr));
+	ft_printf("%s,%c,%d,%p,%i,%u,%x,%X,%%,\n", str, chr, nbr, str, nbr, nbu, nbr, nbr);
 }
