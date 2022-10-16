@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_put_flags.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,9 +17,9 @@ int	ft_putchar(char str)
 	return (1);
 }
 
-int ft_putstr(char *str)
+int	ft_putstr(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -32,8 +32,8 @@ int ft_putstr(char *str)
 
 int	ft_putnbr_base(unsigned long n, char *str)
 {
-	unsigned int base;
-	int size;
+	unsigned int	base;
+	int				size;
 
 	size = 0;
 	base = ft_strlen(str);
