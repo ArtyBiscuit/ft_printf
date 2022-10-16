@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/16 13:38:09 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/16 13:40:47 by arforgea         ###   ########.fr       */
+/*   Created: 2022/08/31 12:15:47 by arforgea          #+#    #+#             */
+/*   Updated: 2022/09/29 22:06:49 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
-# include <stdarg.h>
+char	*ft_strdup(const char *s)
+{
+	char	*src;
+	char	*dest;
+	int		i;
 
-int	ft_putnbr_base(unsigned long n, char *str);
-int	ft_putstr(char *str);
-int	ft_putchar(char str);
-int	ft_printf(const char *str, ...);
-#endif
+	src = (char *) s;
+	i = 0;
+	dest = malloc(sizeof(char) * ft_strlen(src) + 1);
+	if (dest == NULL)
+		return (NULL);
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}

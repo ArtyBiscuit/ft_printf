@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/16 13:38:09 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/16 13:40:47 by arforgea         ###   ########.fr       */
+/*   Created: 2022/09/27 15:53:48 by arforgea          #+#    #+#             */
+/*   Updated: 2022/09/30 18:43:59 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
-# include <stdarg.h>
-
-int	ft_putnbr_base(unsigned long n, char *str);
-int	ft_putstr(char *str);
-int	ft_putchar(char str);
-int	ft_printf(const char *str, ...);
-#endif
+int	ft_isalnum(int c)
+{
+	if (ft_isalpha(c) || ft_isdigit(c))
+		return (1);
+	return (0);
+}

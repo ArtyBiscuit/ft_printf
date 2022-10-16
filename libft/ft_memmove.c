@@ -1,22 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/16 13:38:09 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/16 13:40:47 by arforgea         ###   ########.fr       */
+/*   Created: 2022/09/28 10:35:24 by arforgea          #+#    #+#             */
+/*   Updated: 2022/09/30 19:02:00 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
-# include <stdarg.h>
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	unsigned char	*tmp_s;
+	unsigned char	*tmp_d;
+	size_t			i;
 
-int	ft_putnbr_base(unsigned long n, char *str);
-int	ft_putstr(char *str);
-int	ft_putchar(char str);
-int	ft_printf(const char *str, ...);
-#endif
+	tmp_s = (unsigned char *) src;
+	tmp_d = (unsigned char *) dest;
+	i = 0;
+	if (!tmp_s && !tmp_d)
+		return (dest);
+	while (n != i)
+	{
+		if (tmp_s >= tmp_d)
+		{
+			tmp_d[i] = tmp_s[i];
+			i++;
+		}
+		else
+		{
+			n--;
+			tmp_d[n] = tmp_s[n];
+		}
+	}
+	return (dest);
+}

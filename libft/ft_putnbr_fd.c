@@ -1,58 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_flags.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:40:54 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/16 14:30:18 by arforgea         ###   ########.fr       */
+/*   Updated: 2022/10/01 16:08:21 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft/libft.h"
+#include "libft.h"
 
-int	ft_putchar(char str)
+void	ft_putnbr_fd(int n, int fd)
 {
-	write(1, &str, 1);
-	return (1);
-}
-
-int	ft_putstr(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
+	if (n == -2147483648)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	while (str[i])
+	else if (n < 0)
 	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	return (i);
-}
-
-int	ft_putnbr_base(unsigned long n, char *str)
-{
-	unsigned int	base;
-	int				size;
-
-	size = 0;
-	base = ft_strlen(str);
-	if (n < 0)
-	{
-		size += ft_putchar('-');
+		ft_putchar_fd('-', fd);
 		n *= -1;
 	}
-	if (n >= base)
+	if (n >= 10)
 	{
-		size += ft_putnbr_base(n / base, str);
-		size += ft_putnbr_base(n % base, str);
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
 	}
-	if (n < base)
-		size += ft_putchar(str[n]);
-	return (size);
+	if (n < 10)
+		ft_putchar_fd(n + '0', fd);
 }

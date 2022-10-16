@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/16 13:38:09 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/16 13:40:47 by arforgea         ###   ########.fr       */
+/*   Created: 2022/10/05 21:36:32 by arforgea          #+#    #+#             */
+/*   Updated: 2022/10/10 16:15:43 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
-# include <stdarg.h>
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_list	*new;
 
-int	ft_putnbr_base(unsigned long n, char *str);
-int	ft_putstr(char *str);
-int	ft_putchar(char str);
-int	ft_printf(const char *str, ...);
-#endif
+	new = NULL;
+	while (lst)
+	{
+		ft_lstadd_back(&new, ft_lstnew(f(lst->content)));
+		lst = lst->next;
+	}
+	ft_lstclear(&lst, del);
+	return (new);
+}

@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/16 13:38:09 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/16 13:40:47 by arforgea         ###   ########.fr       */
+/*   Created: 2022/10/05 21:40:22 by arforgea          #+#    #+#             */
+/*   Updated: 2022/10/10 14:05:17 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
-# include <stdarg.h>
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*list;
 
-int	ft_putnbr_base(unsigned long n, char *str);
-int	ft_putstr(char *str);
-int	ft_putchar(char str);
-int	ft_printf(const char *str, ...);
-#endif
+	list = malloc(sizeof(t_list) * 1);
+	if (!list)
+		return (NULL);
+	list->content = content;
+	list->next = NULL;
+	return (list);
+}

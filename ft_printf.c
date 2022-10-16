@@ -6,10 +6,9 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:02:58 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/15 18:19:25 by arforgea         ###   ########.fr       */
+/*   Updated: 2022/10/16 14:30:27 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft/libft.h"
 #include "ft_printf.h"
 #include <stdarg.h>
 
@@ -27,14 +26,27 @@ static char	flags(const char *str, int index, int arg)
 
 static int	ft_putlast_addrstr(va_list ptr)
 {
-	write(1, "0x", 2);
-	ft_putnbr_base(va_arg(ptr, unsigned long), "0123456789abcdef");
-	return (14);
+	unsigned long tmp;
+
+	tmp = va_arg(ptr, unsigned long);
+	if (!tmp)
+	{
+		write(1, "(nil)", 5);
+		return (5);
+	}
+	else
+	{
+		write(1, "0x", 2);
+		ft_putnbr_base(va_arg(ptr, unsigned long), "0123456789abcdef");
+		return (14);
+	}
+	return (0);
 }
 
 static int	ft_print_flags(int *index, const char *str, va_list ptr, int arg)
 {
 	int	size;
+	char	*tmp;
 
 	size = 0;
 	if (flags(str, *index, arg) == 's')

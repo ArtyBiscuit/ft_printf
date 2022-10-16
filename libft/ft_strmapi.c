@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/16 13:38:09 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/16 13:40:47 by arforgea         ###   ########.fr       */
+/*   Created: 2022/10/01 14:18:48 by arforgea          #+#    #+#             */
+/*   Updated: 2022/10/05 03:16:12 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "libft/libft.h"
-# include <stdarg.h>
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char			*f_tab;
+	unsigned int	s_size;
+	unsigned int	cmp;
 
-int	ft_putnbr_base(unsigned long n, char *str);
-int	ft_putstr(char *str);
-int	ft_putchar(char str);
-int	ft_printf(const char *str, ...);
-#endif
+	cmp = 0;
+	if (!s || !f)
+		return (NULL);
+	s_size = ft_strlen(s) + 1;
+	f_tab = ft_calloc(1, s_size);
+	if (!f_tab)
+		return (NULL);
+	while (cmp < s_size - 1)
+	{
+		f_tab[cmp] = f(cmp, s[cmp]);
+		cmp++;
+	}
+	return (f_tab);
+}
