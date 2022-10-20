@@ -6,9 +6,10 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:02:58 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/16 14:30:27 by arforgea         ###   ########.fr       */
+/*   Updated: 2022/10/15 18:19:25 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft/libft.h"
 #include "ft_printf.h"
 #include <stdarg.h>
 
@@ -26,46 +27,35 @@ static char	flags(const char *str, int index, int arg)
 
 static int	ft_putlast_addrstr(va_list ptr)
 {
-	unsigned long tmp;
-
-	tmp = va_arg(ptr, unsigned long);
-	if (!tmp)
-	{
-		write(1, "(nil)", 5);
-		return (5);
-	}
-	else
-	{
-		write(1, "0x", 2);
-		ft_putnbr_base(va_arg(ptr, unsigned long), "0123456789abcdef");
-		return (14);
-	}
-	return (0);
+	write(1, "0x", 2);
+	ft_putnbr_base(va_arg(ptr, unsigned long), "0123456789abcdef");
+	return (14);
 }
 
 static int	ft_print_flags(int *index, const char *str, va_list ptr, int arg)
 {
 	int	size;
-	char	*tmp;
+	char	flags;
 
 	size = 0;
-	if (flags(str, *index, arg) == 's')
+	flags = flags(str, *index, arg);
+	if (flags == 's')
 		size += ft_putstr(va_arg(ptr, char *));
-	else if (flags(str, *index, arg) == 'c')
+	else if (flags == 'c')
 		size += ft_putchar(va_arg(ptr, int));
-	else if (flags(str, *index, arg) == 'd')
+	else if (flags == 'd')
 		size += ft_putnbr_base(va_arg(ptr, int), "0123456789");
-	else if (flags(str, *index, arg) == 'p')
+	else if (flags == 'p')
 		size += ft_putlast_addrstr(ptr);
-	else if (flags(str, *index, arg) == 'i')
+	else if (flags == 'i')
 		size += ft_putnbr_base(va_arg(ptr, int), "0123456789");
-	else if (flags(str, *index, arg) == 'u')
+	else if (flags == 'u')
 		size += ft_putnbr_base(va_arg(ptr, int), "0123456789");
-	else if (flags(str, *index, arg) == 'x')
+	else if (flags == 'x')
 		size += ft_putnbr_base(va_arg(ptr, int), "0123456789abcdef");
-	else if (flags(str, *index, arg) == 'X')
+	else if (flags == 'X')
 		size += ft_putnbr_base(va_arg(ptr, int), "0123456789ABCDEF");
-	else if (flags(str, *index, arg) == '%')
+	else if (flags == '%')
 		size += ft_putchar('%');
 	return (size);
 }

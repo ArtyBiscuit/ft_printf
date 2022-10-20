@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:40:54 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/16 14:30:18 by arforgea         ###   ########.fr       */
+/*   Updated: 2022/10/15 18:13:11 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft/libft.h"
@@ -22,11 +22,6 @@ int	ft_putstr(char *str)
 	int	i;
 
 	i = 0;
-	if (!str)
-	{
-		write(1, "(null)", 6);
-		return (6);
-	}
 	while (str[i])
 	{
 		write(1, &str[i], 1);
