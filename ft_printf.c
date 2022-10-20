@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 17:02:58 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/15 18:19:25 by arforgea         ###   ########.fr       */
+/*   Updated: 2022/10/20 14:24:47 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft/libft.h"
@@ -27,35 +27,43 @@ static char	flags(const char *str, int index, int arg)
 
 static int	ft_putlast_addrstr(va_list ptr)
 {
+	unsigned long tmp;
+
+	tmp = va_arg(ptr, unsigned long);
+	if (!tmp)
+	{
+		write(1, "(nil)", 5);
+		return (5);
+	}
 	write(1, "0x", 2);
-	ft_putnbr_base(va_arg(ptr, unsigned long), "0123456789abcdef");
+	ft_putnbr_base(tmp, "0123456789abcdef");
 	return (14);
 }
 
 static int	ft_print_flags(int *index, const char *str, va_list ptr, int arg)
 {
 	int	size;
-	char	flags;
+	char	flag;
 
 	size = 0;
-	flags = flags(str, *index, arg);
-	if (flags == 's')
+	flag = flags(str, *index, arg);
+	if (flag == 's')
 		size += ft_putstr(va_arg(ptr, char *));
-	else if (flags == 'c')
+	else if (flag == 'c')
 		size += ft_putchar(va_arg(ptr, int));
-	else if (flags == 'd')
+	else if (flag == 'd')
 		size += ft_putnbr_base(va_arg(ptr, int), "0123456789");
-	else if (flags == 'p')
+	else if (flag == 'p')
 		size += ft_putlast_addrstr(ptr);
-	else if (flags == 'i')
+	else if (flag == 'i')
 		size += ft_putnbr_base(va_arg(ptr, int), "0123456789");
-	else if (flags == 'u')
+	else if (flag == 'u')
 		size += ft_putnbr_base(va_arg(ptr, int), "0123456789");
-	else if (flags == 'x')
+	else if (flag == 'x')
 		size += ft_putnbr_base(va_arg(ptr, int), "0123456789abcdef");
-	else if (flags == 'X')
+	else if (flag == 'X')
 		size += ft_putnbr_base(va_arg(ptr, int), "0123456789ABCDEF");
-	else if (flags == '%')
+	else if (flag == '%')
 		size += ft_putchar('%');
 	return (size);
 }
