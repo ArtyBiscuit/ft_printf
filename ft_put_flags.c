@@ -6,7 +6,7 @@
 /*   By: arforgea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 15:40:54 by arforgea          #+#    #+#             */
-/*   Updated: 2022/10/20 14:07:34 by arforgea         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:24:21 by arforgea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft/libft.h"
@@ -54,5 +54,25 @@ int	ft_putnbr_base(unsigned long n, char *str)
 	}
 	if (n < base)
 		size += ft_putchar(str[n]);
+	return (size);
+}
+
+int	ft_putnbr(int n)
+{
+	int				size;
+
+	size = 0;
+	if (n < 0)
+	{
+		size += ft_putchar('-');
+		n *= -1;
+	}
+	if (n >= 10)
+	{
+		size += ft_putnbr(n / 10);
+		size += ft_putnbr(n % 10);
+	}
+	if (n < 10)
+		size += ft_putchar(n += '0');
 	return (size);
 }
